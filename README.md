@@ -19,7 +19,7 @@ The goal is to simulate a complete cybersecurity incident, including the detecti
 
 ## Step 1: Build the Lab Environment
 
-1. Create VMs: Set up Kali Linux and Windows VMs using a cloud provider or local virtualization software.
+1. Create VMs: Set up Kali Linux, Windows, and Ubuntu VMs using a cloud provider or local virtualization software.
 2. Configure Network: Use a Virtual Private Cloud (VPC) to ensure the VMs can communicate securely.
 
 ## Step 2: Simulate the Incident
