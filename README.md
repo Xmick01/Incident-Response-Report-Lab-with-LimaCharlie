@@ -5,7 +5,7 @@
 The goal is to simulate a complete cybersecurity incident, including the detection, analysis, response, and recovery phases. This will provide a thorough understanding of incident response processes and tools, utilizing both your existing setup and new elements to enhance your skills in a controlled environment.
 
 ### Tools and Resources
-- **Upcloud:** Cloud provider for creating and managing virtual machines.
+- **linode:** Cloud provider for creating and managing virtual machines.
 - **Kali Linux:** For penetration testing and creating the attack vector.
 - **Windows Machine:** To act as the target and generate telemetry.
 - **Sysmon:** For detailed system monitoring and logging.
