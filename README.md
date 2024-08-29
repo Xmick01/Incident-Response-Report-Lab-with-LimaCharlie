@@ -5,15 +5,16 @@
 The goal is to simulate a complete cybersecurity incident, including the detection, analysis, response, and recovery phases. This will provide a thorough understanding of incident response processes and tools, utilizing both your existing setup and new elements to enhance your skills in a controlled environment.
 
 ### Tools and Resources
-- **linode:** Cloud provider for creating and managing virtual machines.
+- **[Linode](www.linode.com):** Cloud provider for creating and managing virtual machines.
 - **Kali Linux:** For penetration testing and creating the attack vector.
 - **Windows Machine:** To act as the target and generate telemetry.
-- **Sysmon:** For detailed system monitoring and logging.
-- **Splunk:** For analyzing logs and detecting incidents.
-- **Wireshark:** For capturing and analyzing network traffic.
-- **Zeek:** For network monitoring and intrusion detection.
-- **Microsoft Sentinel:** For additional SIEM capabilities.
-- **Velociraptor:** For endpoint monitoring and analysis.
+- **Ubuntu 22.04:** The security monitoring station.
+- **[Sysmon](https://www.youtube.com/watch?v=uJ7pv6blyog):** For detailed system monitoring and logging.
+- **[Splunk](https://www.youtube.com/watch?v=iaBJ-PK8_RI&list=PLG6KGSNK4PuC_YKHjJWCOvlp7XIZfIh8v&index=7):** For analyzing logs and detecting incidents.
+- **[Wireshark](https://www.youtube.com/watch?v=XZlasFStzqM&list=PLG6KGSNK4PuC_YKHjJWCOvlp7XIZfIh8v&index=25):** For capturing and analyzing network traffic.
+- **[Zeek](https://www.youtube.com/watch?v=WBid7AZ5w4A):** For network monitoring and intrusion detection.
+- **[Microsoft Sentinel](https://www.youtube.com/watch?v=4BAG80PWR4Y):** For additional SIEM capabilities.
+- **[Velociraptor](https://www.youtube.com/watch?v=p9pQ2g-18o4):** For endpoint monitoring and analysis.
 - **Microsoft Defender:** For endpoint protection.
 
 ## Step 1: Build the Lab Environment
