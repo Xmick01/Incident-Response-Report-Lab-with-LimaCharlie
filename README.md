@@ -1,14 +1,22 @@
-# Comprehensive-Incident-Response-Simulation
+# Advanced Home Lab Project for Malware Analysis and SOC Simulation
 
 ## Objective
 
-The goal is to simulate a complete cybersecurity incident, including the detection, analysis, response, and recovery phases. This will provide a thorough understanding of incident response processes and tools, utilizing both your existing setup and new elements to enhance your skills in a controlled environment.
+The objective of this advanced home lab project is to create a controlled environment for simulating realistic cyber incidents, including malware attacks, using three virtual machines (VMs): a Kali Linux machine for offensive security operations, a Windows machine as the target/victim, and a Security Operations Center (SOC) VM for monitoring and analysis. This setup will allow you to practice incident response, threat detection, and analysis in a secure and isolated environment, gaining practical experience with a variety of tools used in a real-world SOC environment.
+
+### Skills Developed
+
+* Malware Analysis: Practice generating and analyzing malware to identify indicators of compromise (IoCs).
+* Tool Proficiency: Develop skills using a range of cybersecurity tools, including Sysmon, Splunk, Zeek, and Elastic Stack.
+* Network Configuration: Enhance your ability to configure and secure virtual machines and networks.
+* Data Analysis: Strengthen skills in generating and analyzing telemetry data to understand system behavior during incidents.
+* Incident Response: Gain experience in detecting, analyzing, containing, and remediating security incidents.
 
 ### Tools and Resources
-- **[Linode](www.linode.com):** Cloud provider for creating and managing virtual machines.
-- **Kali Linux:** For penetration testing and creating the attack vector.
+- **Vultr:** Cloud provider for creating and managing virtual machines.
+- **Kali Linux:** Linux distribution used for penetration testing and offensive security tasks.
 - **Windows Machine:** To act as the target and generate telemetry.
-- **Ubuntu 22.04:** The security monitoring station.
+- **SOC VM (Ubuntu Server/Desktop)**: Centralized monitoring system with tools like Splunk, Zeek, and Wireshark.
 - **[Sysmon](https://www.youtube.com/watch?v=uJ7pv6blyog):** For detailed system monitoring and logging.
 - **[Splunk](https://www.youtube.com/watch?v=iaBJ-PK8_RI&list=PLG6KGSNK4PuC_YKHjJWCOvlp7XIZfIh8v&index=7):** For analyzing logs and detecting incidents.
 - **[Wireshark](https://www.youtube.com/watch?v=XZlasFStzqM&list=PLG6KGSNK4PuC_YKHjJWCOvlp7XIZfIh8v&index=25):** For capturing and analyzing network traffic.
