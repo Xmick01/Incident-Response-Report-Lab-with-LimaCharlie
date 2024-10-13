@@ -42,7 +42,8 @@ This project simulates a real-world incident involving the misuse of wevtutil.ex
   - Collect relevant event logs and process information before the logs are cleared.
   - Use the EDR’s detection capabilities to identify malicious behavior and trigger an alert.
 
-![suspicious wevtutil usage](https://github.com/user-attachments/assets/7d03fe21-3af2-494c-83a2-cc203fbec512)
+![logs wevtutil](https://github.com/user-attachments/assets/b54a633e-22ce-4256-85c2-8e30ffdc12f1)
+
 
 * LimaCharlie will note whether the wevtutil usage is suspicous or not. It gives you the option to mark the event as a false positive as well. This is useful because wevtutil itself is not a malicious program, but it can be used maliciously.
 
@@ -169,7 +170,7 @@ The clearing of logs, especially System and Security logs, severely hampers the 
 1. **Root Cause Analysis:** Investigate the root cause of the log clearing incident and document findings.
 2. **Update Security Policies:** Adjust incident response plans and security policies based on the findings to prevent similar incidents in the future.
 3. **Enhance Monitoring:** Implement specific alerts in LimaCharlie or other monitoring tools for suspicious activity related to event log clearing and administrative tool misuse.
-4. 
+4. **Training and Awareness:** Recommend training for users on recognizing potential security incidents and the importance of log retention.
 
 ## **Conclusion**
 The event involving the clearing of logs via `wevtutil.exe` represents a significant threat to the security posture of the environment. The behavior matches **MITRE ATT&CK Sub-technique T1070.001**, indicating a deliberate attempt to hide malicious activity by removing log evidence. The incident requires immediate containment, further investigation, and post-incident analysis to determine the full scope of any compromise. Strengthening access controls, implementing better log monitoring, and educating staff on the misuse of administrative tools will help mitigate similar risks in the future.
