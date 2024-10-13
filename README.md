@@ -1,10 +1,8 @@
 # Incident Response Report Lab with LimaCharlie (Wevtutil.exe Abuse)
 
-## Project Overview
+## Objective
 
-**Project Name:** Incident Response Report Lab with LimaCharlie (Wevtutil.exe Abuse)  
-**Goal:** To simulate a real-world incident response scenario involving suspicious use of `wevtutil.exe` and generate a detailed incident response report based on the findings.
-
+This project simulates a real-world incident involving the misuse of wevtutil.exe to demonstrate the capabilities of LimaCharlie as an endpoint detection and response (EDR) tool. The primary objective is to enhance incident detection and response strategies by understanding how legitimate tools can be leveraged for malicious purposes
 ## Steps and Components
 
 ### 1. Setup Overview
@@ -23,6 +21,8 @@
 ![limacharlie ubuntu installation 1 ](https://github.com/user-attachments/assets/df02ed84-2f2f-4dc2-b8d1-671a5f327371)
 ![limacharlie ubuntu installation ](https://github.com/user-attachments/assets/9e4253ce-85bd-4938-9dd5-6d77aa2eb676)
 ![limacharlie ubuntu installation complete ](https://github.com/user-attachments/assets/73953033-ff19-4f63-accf-2331120574fd)
+
+* The LimaCharlie agents' role is to monitor and alert for suspicious activities.
 
 ### 2. Incident Simulation
 - **Attack Vector:** The simulation will involve suspicious use of `wevtutil.exe`, a legitimate Windows tool often misused by attackers to clear event logs or access event data for malicious purposes.
@@ -120,6 +120,10 @@ LimaCharlie’s monitoring flagged suspicious use of `wevtutil.exe` on the Windo
   - **`wevtutil.exe`:** A legitimate Windows executable for managing event logs. Its usage to clear event logs in this context is suspicious and indicative of potential malicious activity.
   - **`powershell.exe` and `cmd.exe`:** Common command-line tools were used to initiate the event log clearing, further obscuring the activity.
 
+![command line history](https://github.com/user-attachments/assets/247e2856-b670-4298-8c4a-3686db57ff24)
+
+* The command-line history from the Windows instance shows that wevtutile was indeed executed multiple times.
+
 - **MITRE ATT&CK Framework:**
   - **Sub-technique T1070.001** (Indicator Removal on Host: Clear Windows Event Logs) was identified as the relevant tactic used by the attacker to hide evidence of malicious behavior.
 
@@ -165,6 +169,7 @@ The clearing of logs, especially System and Security logs, severely hampers the 
 1. **Root Cause Analysis:** Investigate the root cause of the log clearing incident and document findings.
 2. **Update Security Policies:** Adjust incident response plans and security policies based on the findings to prevent similar incidents in the future.
 3. **Enhance Monitoring:** Implement specific alerts in LimaCharlie or other monitoring tools for suspicious activity related to event log clearing and administrative tool misuse.
+4. 
 
 ## **Conclusion**
 The event involving the clearing of logs via `wevtutil.exe` represents a significant threat to the security posture of the environment. The behavior matches **MITRE ATT&CK Sub-technique T1070.001**, indicating a deliberate attempt to hide malicious activity by removing log evidence. The incident requires immediate containment, further investigation, and post-incident analysis to determine the full scope of any compromise. Strengthening access controls, implementing better log monitoring, and educating staff on the misuse of administrative tools will help mitigate similar risks in the future.
