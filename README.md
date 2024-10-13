@@ -85,18 +85,17 @@
 
 
 
-# Incident Response Report
+# **Incident Response Report**
 
 - **Incident Date:** October 13, 2024
 - **Reported By:** Xarius (SOC Analyst)
 - **Affected System:** Windows Instance (`EC2AMAZ-H6D1H61`)
 - **Incident Summary:** Malicious log clearing activities were detected on the Windows instance using `wevtutil.exe`. The log clearing behavior aligns with MITRE ATT&CK **Sub-technique T1070.001** (Indicator Removal on Host: Clear Windows Event Logs), potentially indicating an attempt to cover up malicious activity.
 
+## **Executive Summary**
+On 2024-10-13, multiple suspicious events were detected on the instance `ec2amaz-h6d1h61.us-east-2.compute.internal`, indicating potential malicious activity involving event log clearing and configuration changes. The use of `wevtutil.exe`, a legitimate Windows tool, to clear security logs raises significant concerns, particularly in an environment where monitoring and logging are crucial for detecting unauthorized activities. This behavior aligns with **MITRE ATT&CK Sub-technique T1070.001**.
 
-## Executive Summary
-On 2024-10-13, multiple suspicious events were detected on the instance `ec2amaz-h6d1h61.us-east-2.compute.internal`, indicating potential malicious activity involving event log clearing and configuration changes. The use of `wevtutil.exe`, a legitimate Windows tool, to clear security logs raises significant concerns, particularly in an environment where monitoring and logging are crucial for detecting unauthorized activities. Sub-technique: T1070.001
-
-## Incident Details
+## **Incident Details**
 
 ### Timeline of Events
 | Timestamp              | Event Type                                 | Description                                                                                                                                                   |
@@ -104,16 +103,16 @@ On 2024-10-13, multiple suspicious events were detected on the instance `ec2amaz
 | 2024-10-13 04:29:36    | Suspicious Eventlog Clearing Activity      | Command executed: `wevtutil cl System` to clear the System event log.                                                                                      |
 | 2024-10-13 04:30:37    | Suspicious Eventlog Clearing Activity      | Command executed: `wevtutil cl System` (duplicate of previous).                                                                                             |
 | 2024-10-13 04:31:09    | Suspicious Eventlog Clearing Activity      | Command executed: `wevtutil cl security` to clear the Security event log.                                                                                   |
-| 2024-10-13 05:32:12    | Suspicious Eventlog Clearing Activity      | Command executed: `wevtutil cl security' to clear security event log.                                                       |
+| 2024-10-13 05:32:12    | Suspicious Eventlog Clearing Activity      | Command executed: `wevtutil cl security` to clear the Security event log (duplicate).                                                                       |
 | 2024-10-13 05:32:27    | Suspicious Eventlog Clearing Activity      | Command executed: `wevtutil cl security` to clear the Security event log again.                                                                             |
 
 **Initial Detection:** 
 LimaCharlie’s monitoring flagged suspicious use of `wevtutil.exe` on the Windows instance. LimaCharlie marked the event as suspicious, despite VirusTotal reporting the hash as benign, demonstrating that VirusTotal alone may not be sufficient for incident detection.
 
 **Malicious Activity Summary:**
-  - The executable `wevtutil.exe` was used to clear both the System and Security logs on the Windows instance.
-  - The commands were executed under the `Administrator` account (`EC2AMAZ-H6D1H61\Administrator`), which has elevated privileges.
-  - Multiple instances of the `cl` command were observed, raising suspicion of repeated attempts to cover tracks.
+- The executable `wevtutil.exe` was used to clear both the System and Security logs on the Windows instance.
+- The commands were executed under the `Administrator` account (`EC2AMAZ-H6D1H61\Administrator`), which has elevated privileges.
+- Multiple instances of the `cl` command were observed, raising suspicion of repeated attempts to cover tracks.
 
 ## **Tools and Techniques Used**
 
@@ -154,7 +153,7 @@ The clearing of logs, especially System and Security logs, severely hampers the 
 1. **Forensic Analysis:** Perform a full forensic analysis of the Windows instance to determine:
    - User activity leading up to the event log clearing.
    - Any unauthorized external communications.
-   - Presence of any additional indicators of compromise (IoCs) on the system.   
+   - Presence of any additional indicators of compromise (IoCs) on the system.
 2. **Review of Network Traffic:** Investigate network traffic for any signs of lateral movement or communication with malicious external addresses.
 
 ### **Mitigation Measures**
