@@ -87,14 +87,14 @@
 
 # Incident Response Report
 
-**Incident ID:** IR-2024-001  
-**Incident Date:** 2024-10-13  
-**Report Date:** 2024-10-13  
-**Analyst Name:** Xarius  
-**SOC Team:** Lab Incident Response Team  
+- **Incident Date:** October 13, 2024
+- **Reported By:** Xarius (SOC Analyst)
+- **Affected System:** Windows Instance (`EC2AMAZ-H6D1H61`)
+- **Incident Summary:** Malicious log clearing activities were detected on the Windows instance using `wevtutil.exe`. The log clearing behavior aligns with MITRE ATT&CK **Sub-technique T1070.001** (Indicator Removal on Host: Clear Windows Event Logs), potentially indicating an attempt to cover up malicious activity.
+
 
 ## Executive Summary
-On 2024-10-13, multiple suspicious events were detected on the instance `ec2amaz-h6d1h61.us-east-2.compute.internal`, indicating potential malicious activity involving event log clearing and configuration changes. The use of `wevtutil.exe`, a legitimate Windows tool, to clear security logs raises significant concerns, particularly in an environment where monitoring and logging are crucial for detecting unauthorized activities. 
+On 2024-10-13, multiple suspicious events were detected on the instance `ec2amaz-h6d1h61.us-east-2.compute.internal`, indicating potential malicious activity involving event log clearing and configuration changes. The use of `wevtutil.exe`, a legitimate Windows tool, to clear security logs raises significant concerns, particularly in an environment where monitoring and logging are crucial for detecting unauthorized activities. Sub-technique: T1070.001
 
 ## Incident Details
 
@@ -107,36 +107,65 @@ On 2024-10-13, multiple suspicious events were detected on the instance `ec2amaz
 | 2024-10-13 05:32:12    | Suspicious Eventlog Clearing Activity      | Command executed: `wevtutil cl security' to clear security event log.                                                       |
 | 2024-10-13 05:32:27    | Suspicious Eventlog Clearing Activity      | Command executed: `wevtutil cl security` to clear the Security event log again.                                                                             |
 
-### Event Analysis
-- **Tools Involved:** The tool `wevtutil.exe`, located in `C:\Windows\system32\`, is a legitimate Windows executable used for managing event logs. However, its usage in clearing logs is concerning as it may indicate an attempt to cover tracks following malicious activity.
-- **User Context:** The commands were executed under the `EC2AMAZ-H6D1H61\Administrator` user account, which typically has elevated privileges, raising suspicion regarding the intent behind the log clearing.
-- **Processes Involved:** The commands were initiated by `powershell.exe` and `cmd.exe`, which are common command-line interfaces on Windows systems, further obscuring the malicious activity. 
+**Initial Detection:** 
+LimaCharlie’s monitoring flagged suspicious use of `wevtutil.exe` on the Windows instance. LimaCharlie marked the event as suspicious, despite VirusTotal reporting the hash as benign, demonstrating that VirusTotal alone may not be sufficient for incident detection.
 
-### Event Correlation
-The pattern of clearing both System and Security logs within a short timeframe suggests a deliberate effort to erase potential traces of unauthorized actions. The duplicate event clearing commands also indicate an ongoing attempt to ensure log records do not capture relevant information.
+**Malicious Activity Summary:**
+  - The executable `wevtutil.exe` was used to clear both the System and Security logs on the Windows instance.
+  - The commands were executed under the `Administrator` account (`EC2AMAZ-H6D1H61\Administrator`), which has elevated privileges.
+  - Multiple instances of the `cl` command were observed, raising suspicion of repeated attempts to cover tracks.
 
-### Potential Impact
-If this activity is determined to be malicious, it could indicate a compromise of the `Administrator` account or a potentially exploited vulnerability. The clearing of logs significantly hampers incident detection and response efforts, allowing further malicious activities to go undetected.
+## **Tools and Techniques Used**
 
-## Recommendations
-1. **Immediate Actions:**
-   - Isolate the affected instance to prevent further malicious actions.
-   - Preserve all logs and event data prior to isolation to maintain evidence for further analysis.
+- **Tools Involved:**
+  - **`wevtutil.exe`:** A legitimate Windows executable for managing event logs. Its usage to clear event logs in this context is suspicious and indicative of potential malicious activity.
+  - **`powershell.exe` and `cmd.exe`:** Common command-line tools were used to initiate the event log clearing, further obscuring the activity.
 
-2. **Further Investigation:**
-   - Conduct a full forensic analysis of the affected instance, focusing on:
-     - User activity leading up to the event log clearing.
-     - Network traffic analysis to identify any unauthorized external communications.
-     - Review of additional system logs for other potential indicators of compromise (IoCs).
+- **MITRE ATT&CK Framework:**
+  - **Sub-technique T1070.001** (Indicator Removal on Host: Clear Windows Event Logs) was identified as the relevant tactic used by the attacker to hide evidence of malicious behavior.
 
-3. **Mitigation Measures:**
-   - Strengthen access controls for sensitive accounts, particularly those with administrative privileges.
-   - Implement monitoring and alerting mechanisms for suspicious use of `wevtutil.exe` and other administrative tools.
-   - Educate staff on the importance of log integrity and the implications of log clearing on incident response capabilities.
+## **Event Analysis**
 
-4. **Post-Incident Review:**
-   - Analyze the incident's root cause and develop a report summarizing findings, actions taken, and lessons learned.
-   - Update incident response plans and security policies based on insights from this incident.
+- **User Context:** 
+  The commands were executed under the `Administrator` account, which has elevated privileges, indicating the potential misuse of a privileged account.
+  
+- **Process Details:** 
+  The clearing of both System and Security logs was initiated using `powershell.exe` and `cmd.exe`. These command-line tools are common in both administrative and malicious activities, making it harder to detect malicious behavior.
 
-## Conclusion
-The analysis of the suspicious events related to event log clearing indicates a significant risk to the security posture of the environment. Immediate containment and thorough investigation are essential to determine the extent of any potential compromise and to restore confidence in the integrity of the logging and monitoring systems.
+- **Pattern of Activity:**
+  Clearing both log types within a short timeframe suggests a deliberate attempt to erase traces of unauthorized actions. The repeated use of the `cl` command to clear logs points to a systematic attempt to cover tracks.
+
+## **Event Correlation**
+
+The suspicious use of `wevtutil.exe` to clear event logs aligns with the MITRE ATT&CK **Sub-technique T1070.001** (Indicator Removal on Host: Clear Windows Event Logs). This technique is commonly used by attackers to erase evidence from system logs after performing unauthorized actions. The repeated clearing of logs indicates an ongoing attempt to hide potentially malicious activities.
+
+## **Potential Impact**
+
+The clearing of logs, especially System and Security logs, severely hampers the ability to detect and respond to incidents. If malicious activity was involved, it could indicate a broader compromise of the `Administrator` account or exploitation of vulnerabilities within the system. Without logs, further malicious activity may have gone unnoticed.
+
+## **Recommendations**
+
+### **Immediate Actions**
+1. **Isolate the Windows Instance:** To prevent further malicious activities from occurring.
+2. **Preserve Logs and Evidence:** Despite the logs being cleared, other evidence such as memory and disk snapshots should be captured for analysis.
+3. **Alert Relevant Teams:** Notify the incident response and forensic teams for further investigation.
+
+### **Further Investigation**
+1. **Forensic Analysis:** Perform a full forensic analysis of the Windows instance to determine:
+   - User activity leading up to the event log clearing.
+   - Any unauthorized external communications.
+   - Presence of any additional indicators of compromise (IoCs) on the system.   
+2. **Review of Network Traffic:** Investigate network traffic for any signs of lateral movement or communication with malicious external addresses.
+
+### **Mitigation Measures**
+1. **Enhance Access Controls:** Restrict administrative privileges and ensure only authorized personnel have access to sensitive accounts.
+2. **Implement Log Integrity Controls:** Introduce mechanisms that prevent the clearing or tampering of logs without proper authorization and alert the SOC on such actions.
+3. **Educate Users:** Provide training for staff on the importance of log integrity and the risks of administrative tools like `wevtutil.exe`.
+
+### **Post-Incident Review**
+1. **Root Cause Analysis:** Investigate the root cause of the log clearing incident and document findings.
+2. **Update Security Policies:** Adjust incident response plans and security policies based on the findings to prevent similar incidents in the future.
+3. **Enhance Monitoring:** Implement specific alerts in LimaCharlie or other monitoring tools for suspicious activity related to event log clearing and administrative tool misuse.
+
+## **Conclusion**
+The event involving the clearing of logs via `wevtutil.exe` represents a significant threat to the security posture of the environment. The behavior matches **MITRE ATT&CK Sub-technique T1070.001**, indicating a deliberate attempt to hide malicious activity by removing log evidence. The incident requires immediate containment, further investigation, and post-incident analysis to determine the full scope of any compromise. Strengthening access controls, implementing better log monitoring, and educating staff on the misuse of administrative tools will help mitigate similar risks in the future.
