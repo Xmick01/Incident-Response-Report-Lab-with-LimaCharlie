@@ -46,6 +46,7 @@ This project simulates a real-world incident involving the misuse of wevtutil.ex
 
 
 * LimaCharlie will note whether the wevtutil usage is suspicous or not. It gives you the option to mark the event as a false positive as well. This is useful because wevtutil itself is not a malicious program, but it can be used maliciously.
+![suspicious wevtutil usage](https://github.com/user-attachments/assets/c8cc192f-8c39-4704-973b-84f7595b719a)
 
 * Notably, when the hash file was submitted to VirusTotal, it was identified as benign. However, LimaCharlie flagged the file as suspicious, demonstrating that while VirusTotal can be a valuable tool in incident response, it should not be relied upon as the sole method of detection. Utilizing multiple tools ensures a more comprehensive analysis, as attackers may use techniques to evade detection by certain platforms
 ![virustotal scan of wetv](https://github.com/user-attachments/assets/451e4899-f40f-4802-acad-1da37c4f0761)
